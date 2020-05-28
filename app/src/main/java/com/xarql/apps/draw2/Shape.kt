@@ -16,8 +16,8 @@ abstract class Shape(
         // adapted from a StackOverflow question that was in C++
         fun rotatePoint(point: Vector2f, pivot: Vector2f, rotation: Rotation): Vector2f {
             // sin and cos expect radians, but rotation stores degrees
-            val sin = sin(Math.toRadians(rotation.getDegrees()))
-            val cos = cos(Math.toRadians(rotation.getDegrees()))
+            val sin = sin(Math.toRadians(rotation.getDegrees().toDouble()))
+            val cos = cos(Math.toRadians(rotation.getDegrees().toDouble()))
 
 
             var out: Vector2f = Vector2f(point)
@@ -49,18 +49,23 @@ abstract class Shape(
 
     abstract fun points(): MutableList<Vector2f>
 
-    fun rotate(amount: Rotation) {
-        for (point in points())
-            rotatePoint(point, origin, amount)
-        rotation.add(amount)
+    private fun rotate(point: Vector2f): Vector2f {
+        return rotatePoint(point, origin, rotation)
     }
 
     // draws a polygon made from the points() function
-    fun drawOn(canvas: Canvas) {
-        var points: MutableList<Vector2f> = points();
-        points.add(points.get(0))
-        for (i in 0 until points.size - 1) {
-            drawLine(canvas, points.get(i), points.get(i + 1))
+    open fun drawOn(canvas: Canvas) {
+        var points: MutableList<Vector2f> = points()
+        points.add(points[0])
+        var i = 0
+        while (i < points.size) { // apply rotation to each point
+            points[i] = rotate(points[i])
+            i++
+        }
+        i = 0
+        while (i < points.size - 1) { // draw lines between points
+            drawLine(canvas, points[i], points[i + 1])
+            i++
         }
     }
 

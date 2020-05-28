@@ -4,25 +4,24 @@ package com.xarql.apps.draw2
  * Rotation holds a Double value that marks degrees of
  * clockwise rotation within the bounds [0, 360]
  */
-class Rotation(degrees: Double = 0.0) {
-    private var degrees: Double = 0.0
+class Rotation(private var degrees: Float = 0.0f) {
 
     init {
         setDegrees(degrees)
     }
 
-    fun setDegrees(degrees: Double) {
+    fun setDegrees(degrees: Float) {
         this.degrees = degrees % 360
     }
 
-    fun getDegrees(): Double {
+    fun getDegrees(): Float {
         // ensure degrees is within [0, 360]
         if (degrees > 360 || degrees < 0)
             setDegrees(degrees)
         return degrees
     }
 
-    fun add(degrees: Double) {
+    fun add(degrees: Float) {
         setDegrees(getDegrees() + degrees)
     }
 
