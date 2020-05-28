@@ -1,8 +1,8 @@
 package com.xarql.apps.draw2
 
-class Rectangle(
-    var width: Float,
-    var height: Float,
+open class Rectangle(
+    var width: Float = 100f,
+    var height: Float = 100f,
     rotation: Rotation = Rotation(),
     origin: Vector2f = Vector2f()
 ) : Shape(rotation, origin) {
