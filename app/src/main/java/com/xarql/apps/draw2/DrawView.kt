@@ -5,10 +5,10 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.View
 
-class DrawView constructor(context: Context) : View(context) {
+class DrawView constructor(context: Context, attributes: AttributeSet) : View(context, attributes) {
     var shapes: MutableList<Shape> = ArrayList()
 
-    constructor(context: Context, attributes: AttributeSet) : this(context) {
+    init {
         val vectorA = Vector2f(50f, 50f)
         val vectorB = Vector2f(50f, 0f)
         val vectorC = Vector2f(100f, 50f)

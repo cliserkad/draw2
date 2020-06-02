@@ -9,16 +9,18 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var dv: DrawView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        dv = findViewById<DrawView>(R.id.drawView)
     }
 
-    // FIXME: this is creating a NullPointerException on dv
     fun addShape(view: View) {
-        var dv = findViewById<DrawView>(R.id.drawView)
         dv.shapes.add(Rectangle())
+        dv.invalidate()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
